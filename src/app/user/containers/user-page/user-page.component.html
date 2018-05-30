@@ -1,6 +1,1 @@
-<button mat-button>
-  Update User</button>
-
-<mat-divider></mat-divider>
-
-<app-user-form [user]='user$ | async' (update)='update($event)'></app-user-form>
+<app-user-form [user]='user$ | async' [userPending]='userPending$ | async' [userDirty]='userDirty$ | async' [userForm]='userForm'></app-user-form>

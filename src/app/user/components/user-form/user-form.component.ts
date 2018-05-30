@@ -9,6 +9,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-form',
@@ -17,29 +18,17 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class UserFormComponent implements OnInit, OnChanges {
   @Input() user: User;
-  @Output() update = new EventEmitter<User>();
-  userForm: FormGroup;
+  @Input() userPending: boolean;
+  @Input() userDirty: boolean;
+  @Input() userForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.userForm = this.formBuilder.group({
-      id: 0,
-      name: '',
-      address: '',
-      gender: ''
-    });
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.userForm.patchValue(this.user);
-  }
-
-  discard() {
-    this.userForm.patchValue(this.user);
-  }
-
-  submit() {
-    this.update.emit(this.userForm.value);
+    if (this.userForm && !this.userPending && !this.userDirty && changes.user) {
+      this.userForm.patchValue(this.user, { emitEvent: false });
+    }
   }
 }

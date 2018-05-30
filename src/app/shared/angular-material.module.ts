@@ -7,7 +7,10 @@ import {
   MatSelectModule,
   MatOptionModule,
   MatDividerModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressSpinnerModule,
+  MatIconModule,
+  MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +22,10 @@ import {
     MatSelectModule,
     MatOptionModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   declarations: []
 })

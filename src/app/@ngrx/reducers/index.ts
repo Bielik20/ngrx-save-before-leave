@@ -1,3 +1,4 @@
+import { User } from '../../user/models/user';
 import {
   ActionReducer,
   ActionReducerMap,

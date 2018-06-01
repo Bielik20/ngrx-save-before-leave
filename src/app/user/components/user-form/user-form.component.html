@@ -1,4 +1,4 @@
-<form [formGroup]="userForm">
+<form *ngIf="user" [formGroup]="userForm">
   <mat-card style="margin: 50px">
     <mat-card-header>
       <mat-spinner *ngIf='!userDirty && userPending' matTooltip="Saving" style="margin: 3px" [diameter]="30"></mat-spinner>
@@ -33,5 +33,5 @@
   </mat-card>
 </form>
 
-{{user | json}}
+<!--{{user | json}}-->
 <br> {{userForm.value | json}}

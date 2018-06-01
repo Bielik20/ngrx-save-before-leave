@@ -1,15 +1,19 @@
-import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserFormComponent } from './components/user-form/user-form.component';
-import { UserPageComponent } from './containers/user-page/user-page.component';
 import { AngularMaterialModule } from '../shared/angular-material.module';
-import { reducers } from './@ngrx/reducers';
 import { AngularModule } from '../shared/angular.module';
-import { UserEffects } from './@ngrx/effects';
+import { CollectionEffects } from './@ngrx/effects/collection';
+import { UserEffects } from './@ngrx/effects/user';
+import { reducers } from './@ngrx/reducers';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
+import { UserCollectionComponent } from './containers/user-collection/user-collection.component';
+import { UserEditComponent } from './containers/user-edit/user-edit.component';
+import { UserComponent } from './containers/user/user.component';
+import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
 import { routes } from './routes';
 
 @NgModule({
@@ -19,9 +23,9 @@ import { routes } from './routes';
     AngularModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('user', reducers),
-    EffectsModule.forFeature([UserEffects])
+    EffectsModule.forFeature([UserEffects, CollectionEffects])
   ],
-  declarations: [UserFormComponent, UserPageComponent],
+  declarations: [UserFormComponent, UserEditComponent, UserComponent, UserCollectionComponent, UserTableComponent],
   providers: [CanDeactivateGuard]
 })
 export class UserModule {}

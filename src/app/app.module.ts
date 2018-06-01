@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { environment } from '../environments/environment';
 import { reducers } from './@ngrx/reducers';
 
 import { AppComponent } from './app.component';
 import { HelpComponent } from './containers/help/help.component';
+import { InMemoryDataService } from './in-memory-data.service';
 import { routes } from './routes';
 import { AngularMaterialModule } from './shared/angular-material.module';
 import { AngularModule } from './shared/angular.module';
@@ -21,6 +23,7 @@ import { AngularModule } from './shared/angular.module';
     BrowserAnimationsModule,
     AngularMaterialModule,
     AngularModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 1000 }),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
     // Instrumentation must be imported after importing StoreModule (config is optional)

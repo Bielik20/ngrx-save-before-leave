@@ -1,11 +1,12 @@
-import { User } from './../../models/user';
+import { User } from '../../models/user';
 import { Action } from '@ngrx/store';
 
 export enum UserActionTypes {
-  Update = '[User Page] Update User',
+  Update = '[User] Update User',
   UpdateFromGuard = '[Can Deactivate] Update User',
-  Success = '[User API] Update User Success',
-  MarkDirty = '[User Page] Mark Dirty'
+  UpdateSuccess = '[User API] Update User Success',
+  MarkDirty = '[User] Mark Dirty',
+  SelectUser = '[User] Select User',
 }
 
 export class UpdateUser implements Action {
@@ -25,9 +26,15 @@ export class MarkDirty implements Action {
 }
 
 export class UpdateUserSuccess implements Action {
-  readonly type = UserActionTypes.Success;
+  readonly type = UserActionTypes.UpdateSuccess;
 
   constructor(public payload: User) {}
 }
 
-export type UserActionsUnion = UpdateUser | UpdateUserFromGuard | UpdateUserSuccess | MarkDirty;
+export class SelectUser implements Action {
+  readonly type = UserActionTypes.SelectUser;
+
+  constructor(public payload: number) {}
+}
+
+export type UserActionsUnion = UpdateUser | UpdateUserFromGuard | UpdateUserSuccess | MarkDirty | SelectUser;

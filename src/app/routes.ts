@@ -1,5 +1,5 @@
 import { HelpComponent } from './containers/help/help.component';
-import { UserPageComponent } from './user/containers/user-page/user-page.component';
+import { UserEditComponent } from './user/containers/user-edit/user-edit.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [

@@ -10,15 +10,14 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { reducers } from './@ngrx/reducers';
 import { AngularModule } from '../shared/angular.module';
 import { UserEffects } from './@ngrx/effects';
+import { routes } from './routes';
 
 @NgModule({
   imports: [
     CommonModule,
     AngularMaterialModule,
     AngularModule,
-    RouterModule.forChild([
-      { path: '', component: UserPageComponent, canDeactivate: [CanDeactivateGuard] }
-    ]),
+    RouterModule.forChild(routes),
     StoreModule.forFeature('user', reducers),
     EffectsModule.forFeature([UserEffects])
   ],

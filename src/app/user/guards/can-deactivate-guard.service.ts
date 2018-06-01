@@ -4,7 +4,7 @@ import { UserPageComponent } from '../containers/user-page/user-page.component';
 import { Store, select } from '@ngrx/store';
 import * as fromUser from '../@ngrx/reducers';
 import * as UserActions from '../@ngrx/actions';
-import { map, filter, tap } from 'rxjs/operators';
+import {map, filter, tap, take} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class CanDeactivateGuard implements CanDeactivate<UserPageComponent> {
         }
       }),
       filter(status => !status.dirty && !status.pending),
-      map(() => true)
+      map(() => true),
+      take(1)
     );
   }
 }

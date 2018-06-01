@@ -1,19 +1,8 @@
-import {
-  debounceTime,
-  map,
-  switchMap,
-  delay,
-  catchError,
-  take,
-  tap,
-  distinctUntilChanged
-} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
-import { UpdateUser, UserActionTypes, UpdateUserFromGuard, UpdateUserSuccess } from '../actions';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import isEqual from 'lodash/isEqual';
+import { delay, map, switchMap } from 'rxjs/operators';
+import { UpdateUser, UpdateUserFromGuard, UpdateUserSuccess, UserActionTypes } from '../actions';
 
 @Injectable()
 export class UserEffects {
@@ -24,10 +13,6 @@ export class UserEffects {
       UserActionTypes.UpdateFromGuard
     ),
     map(action => action.payload),
-    // distinctUntilChanged((userX, userY) => {
-    //   console.log(isEqual(userX, userY));
-    //   return false;
-    // }),
     switchMap(user => of(user).pipe(delay(1000), map(userRes => new UpdateUserSuccess(userRes))))
   );
 

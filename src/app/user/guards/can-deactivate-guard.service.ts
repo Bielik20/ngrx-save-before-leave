@@ -7,11 +7,14 @@ import * as UserActions from '../@ngrx/actions/user';
 import {map, filter, tap, take} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CanDeactivateGuard implements CanDeactivate<UserEditComponent> {
   constructor(private store: Store<fromUser.State>) {}
 
   canDeactivate(component: UserEditComponent): Observable<boolean> {
+    component.resetLiteSubs();
     return this.store.pipe(
       select(fromUser.selectStatusState),
       tap(status => {

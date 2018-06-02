@@ -11,8 +11,9 @@ import { User } from '../../models/user';
 // TODO: Issue, step:
 // 1. make changes
 // 2. navigate to different user
-// 3. immediately navigate back to original user
-// 4. it will send the same update can-deactivate guards has sent.
+// 3. make changes to original user while it is saving (pending)
+// 4. immediately navigate back to original user
+// 5. it will send the same update can-deactivate guards has sent.
 
 @Component({
   selector: 'app-user-edit',
@@ -35,7 +36,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.createStreams();
     this.createForm();
-    this.heavySubs.push(this.createRouteSubscription());
+    this.heavySubs.push(this.createRouteSub());
     this.resetLiteSubs();
   }
 
@@ -59,7 +60,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  createRouteSubscription(): Subscription {
+  createRouteSub(): Subscription {
     return this.route.params.pipe(
       tap(() => this.resetLiteSubs()),
       map(params => new UserActions.SelectUser(+params.id))
@@ -67,7 +68,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       .subscribe(this.store);
   }
 
-  createDirtySubscription(): Subscription {
+  createDirtySub(): Subscription {
     return this.userForm.valueChanges.pipe(
       withLatestFrom(this.userDirty$),
       map(([user, dirty]) => dirty),
@@ -76,7 +77,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       .subscribe(() => this.store.dispatch(new UserActions.MarkDirty()));
   }
 
-  createValueSubscription(): Subscription {
+  createValueSub(): Subscription {
     return this.userForm.valueChanges
       .pipe(debounceTime(3000))
       .subscribe(user => {
@@ -87,7 +88,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   resetLiteSubs() {
     this.liteSubs.forEach(element => element.unsubscribe());
     this.liteSubs = [];
-    this.liteSubs.push(this.createDirtySubscription());
-    this.liteSubs.push(this.createValueSubscription());
+    this.liteSubs.push(this.createDirtySub());
+    this.liteSubs.push(this.createValueSub());
   }
 }

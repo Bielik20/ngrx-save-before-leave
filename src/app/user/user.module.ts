@@ -13,7 +13,6 @@ import { UserTableComponent } from './components/user-table/user-table.component
 import { UserCollectionComponent } from './containers/user-collection/user-collection.component';
 import { UserEditComponent } from './containers/user-edit/user-edit.component';
 import { UserComponent } from './containers/user/user.component';
-import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
 import { routes } from './routes';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { routes } from './routes';
     StoreModule.forFeature('user', reducers),
     EffectsModule.forFeature([UserEffects, CollectionEffects])
   ],
-  declarations: [UserFormComponent, UserEditComponent, UserComponent, UserCollectionComponent, UserTableComponent],
-  providers: [CanDeactivateGuard]
+  declarations: [UserFormComponent, UserEditComponent, UserComponent, UserCollectionComponent, UserTableComponent]
 })
 export class UserModule {}

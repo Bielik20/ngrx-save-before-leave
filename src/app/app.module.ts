@@ -23,7 +23,7 @@ import { AngularModule } from './shared/angular.module';
     BrowserAnimationsModule,
     AngularMaterialModule,
     AngularModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 1000 }),
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 2000 }),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
     // Instrumentation must be imported after importing StoreModule (config is optional)

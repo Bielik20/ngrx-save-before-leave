@@ -3,17 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, filter, map, withLatestFrom } from 'rxjs/operators';
 import * as UserActions from '../../@ngrx/actions/user';
 import * as fromUser from '../../@ngrx/reducers';
 import { User } from '../../models/user';
 
-// TODO: Issue, step:
-// 1. make changes
-// 2. navigate to different user
-// 3. make changes to original user while it is saving (pending)
-// 4. immediately navigate back to original user
-// 5. it will send the same update can-deactivate guards has sent.
+// TODO: Write Tests
 
 @Component({
   selector: 'app-user-edit',
@@ -61,10 +56,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   createRouteSub(): Subscription {
-    return this.route.params.pipe(
-      tap(() => this.resetLiteSubs()),
-      map(params => new UserActions.SelectUser(+params.id))
-    )
+    return this.route.params
+      .pipe(map(params => new UserActions.SelectUser(+params.id)))
       .subscribe(this.store);
   }
 

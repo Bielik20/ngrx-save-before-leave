@@ -24,7 +24,8 @@ export class CanDeactivateGuard implements CanDeactivate<UserEditComponent> {
       }),
       filter(status => !status.dirty && !status.pending),
       map(() => true),
-      take(1)
+      take(1),
+      tap(() => component.resetLiteSubs())
     );
   }
 }
